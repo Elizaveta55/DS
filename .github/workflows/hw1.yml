@@ -1,12 +1,12 @@
-name: NN Model Test
+name: implementation Test
 
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,13 +29,14 @@ jobs:
     - name: Display Python version
       run: python -c "import sys; print(sys.version)"
     - name: Install dependencies
+      working-directory: ./HOMEWORKS/HW1
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Train Model
-      working-directory: ./src
+      working-directory: ./HOMEWORKS/HW1/src
       run: python train.py 
     - name: Test Model
-      working-directory: ./src
+      working-directory: ./HOMEWORKS/HW1/src
       run: python test.py 
