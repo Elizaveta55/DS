@@ -1,6 +1,7 @@
 import torch, os
 import pandas as pd
 import numpy as np
+from torchtext.data.utils import get_tokenizer
 from torch.utils.data import DataLoader, TensorDataset
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
