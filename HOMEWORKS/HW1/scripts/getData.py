@@ -51,7 +51,7 @@ def get_data(data_path="../data/Data1/train_eng.csv",testData = True):
     dataset = TensorDataset(train_data_normalized, tgts_tensor)
     train_loader = DataLoader(dataset, batch_size=128, shuffle=True, pin_memory=True)
 
-    return train_loader, test_loader
+    return train_loader, test_loader, embedding_size
 
 
 
