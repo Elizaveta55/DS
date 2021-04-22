@@ -51,7 +51,7 @@ def evaluate_model(model, data_batches, loss_function):
 
 
 if __name__ == '__main__':
-    _,testDataLoader, embedding_size = scripts.get_data(data_path="../data/SeoulBikeData.csv",testData = True)
+    _,testDataLoader, embedding_size = scripts.get_data(data_path="../data/Data1/train_eng.csv",testData = True)
     model = noLSTM(input_size = embedding_size)
     loss_function = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
