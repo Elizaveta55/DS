@@ -1,8 +1,6 @@
 import torch, os
 import pandas as pd
 import numpy as np
-from context import scripts
-import scripts
 import torch
 from torch import nn
 import torchtext
