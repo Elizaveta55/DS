@@ -18,7 +18,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu' # get device for trainin
 writer = SummaryWriter()
 
 class noLSTM(torch.nn.Module):
-  def __init__(self, input_size=max_length, hidden_layer_size=100, output_size=2):
+  def __init__(self, input_size=embedding_size, hidden_layer_size=100, output_size=2):
         super().__init__()
         self.input_size = input_size
         self.hidden_layer_size = hidden_layer_size
@@ -66,7 +66,6 @@ def main(args):
     #load data
     train_DataLoader, _  = scripts.get_data(data_path="../data/Data1/train_data.csv",testData = True)
     # train_DataLoader = DataLoader(TensorDataset(train_x, train_y), batch_size=30)
-
     model = noLSTM()
     loss_function = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
