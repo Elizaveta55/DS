@@ -18,7 +18,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu' # get device for trainin
 writer = SummaryWriter()
 
 class LSTM(torch.nn.Module):
-  def __init__(self, input_size=max_length, hidden_layer_size=100, output_size=2):
+  def __init__(self, input_size, hidden_layer_size=100, output_size=2):
         super().__init__()
         self.hidden_layer_size = hidden_layer_size
         self.lstm = nn.LSTM(input_size, hidden_layer_size)
@@ -63,10 +63,10 @@ def f1_loss_one(y_true: torch.Tensor, y_pred: torch.Tensor, is_training=False) -
 def main(args):
 
     #load data
-    train_DataLoader, _  = scripts.get_data(data_path="../data/SeoulBikeData.csv",testData = True)
+    train_DataLoader, _, embedding_size  = scripts.get_data(data_path="../data/SeoulBikeData.csv",testData = True)
     # train_DataLoader = DataLoader(TensorDataset(train_x, train_y), batch_size=30)
 
-    model = LSTM()
+    model = LSTM(input_size = embedding_size)
     loss_function = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
@@ -85,7 +85,7 @@ def main(args):
         correct = 0
         total = 0
         start_epoch = time.time()
-        for item in loader:
+        for item in train_DataLoader:
             seq = item[0]
             label = item[1]
             optimizer.zero_grad()
