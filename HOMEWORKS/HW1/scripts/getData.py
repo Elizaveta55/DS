@@ -8,6 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 from torch.utils.data import DataLoader, TensorDataset
 import pandas as pd
 import numpy as np
+from torchtext.data.utils import get_tokenizer
 import time
 import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
