@@ -64,9 +64,10 @@ def f1_loss_one(y_true: torch.Tensor, y_pred: torch.Tensor, is_training=False) -
 def main(args):
 
     #load data
-    train_DataLoader, _, embedding_size  = scripts.get_data(data_path="../data/Data1/train_data.csv",testData = True)
+    train_DataLoader, _, embedding_size  = scripts.get_data(data_path="../data/Data1/train_eng.csv",testData = True)
     # train_DataLoader = DataLoader(TensorDataset(train_x, train_y), batch_size=30)
-    model = noLSTM(input_size=embedding_size)
+
+    model = noLSTM(input_size = embedding_size)
     loss_function = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
@@ -87,7 +88,7 @@ def main(args):
         correct = 0
         total = 0
         start_epoch = time.time()
-        for item in loader:
+        for item in train_DataLoader:
             seq = item[0]
             label = item[1]
             optimizer.zero_grad()
