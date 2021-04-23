@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from torch.utils.tensorboard import SummaryWriter
 
 class LSTM(torch.nn.Module):
-  def __init__(self, input_size=max_length, hidden_layer_size=100, output_size=2):
+  def __init__(self, input_size, hidden_layer_size=100, output_size=2):
         super().__init__()
         self.hidden_layer_size = hidden_layer_size
         self.lstm = nn.LSTM(input_size, hidden_layer_size)
@@ -49,8 +49,8 @@ def evaluate_model(model, data_batches, loss_function):
 
 
 if __name__ == '__main__':
-    _,testDataLoader = scripts.get_data(data_path="../data/SeoulBikeData.csv",testData = True)
-    model = LSTM()
+    _,testDataLoader, embedding_size = scripts.get_data(data_path="../data/Data1/train_eng.csv",testData = True)
+    model = LSTM(input_size = embedding_size)
     loss_function = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
