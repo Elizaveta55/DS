@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from torch.utils.tensorboard import SummaryWriter
 
 class LSTM(torch.nn.Module):
-  def __init__(self, input_size=max_length, hidden_layer_size=100, output_size=2, vocab_size=52, embedding_dim = max_length):
+  def __init__(self, input_size, hidden_layer_size=100, output_size=2, vocab_size=52, embedding_dim):
         super().__init__()
         self.hidden_layer_size = hidden_layer_size
         #self.embedding = nn.Embedding(vocab_size, embedding_dim)
@@ -50,11 +50,11 @@ def evaluate_model(model, data_batches, loss_function):
 
 
 if __name__ == '__main__':
-    _,testDataLoader = scripts.get_data(data_path="../data/SeoulBikeData.csv",testData = True)
-    model = LSTM()
+    _,testDataLoader, embedding_size = scripts.get_data(data_path="../data/Data1/train_eng.csv",testData = True)
+    model = LSTM(input_size = embedding_size, embedding_dim = embedding_size)
     loss_function = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     model.load_state_dict(torch.load('./model.pt'))
-    test_loss, test_acc = evaluate_model(model, loader, loss_function)
+    test_loss, test_acc = evaluate_model(model, testDataLoader, loss_function)
     print(f'Accuracy on test data : {test_acc * 100:.2f}%')
