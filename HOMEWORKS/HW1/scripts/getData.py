@@ -18,7 +18,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-def data_process(raw_text_iter,max_len=128,tokenizer):
+def data_process(raw_text_iter,max_len,tokenizer):
     batch = []
     for item in raw_text_iter:
       res = []
