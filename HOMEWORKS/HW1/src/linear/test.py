@@ -1,3 +1,5 @@
+from context import scripts
+import scripts
 import torch
 from torch import nn
 import time
@@ -13,8 +15,9 @@ import numpy as np
 from torch.utils.data import DataLoader, TensorDataset
 from torch.utils.tensorboard import SummaryWriter
 
+
 class noLSTM(torch.nn.Module):
-  def __init__(self, input_size=max_length, hidden_layer_size=100, output_size=2):
+  def __init__(self, input_size, hidden_layer_size=100, output_size=2):
         super().__init__()
         self.input_size = input_size
         self.hidden_layer_size = hidden_layer_size
@@ -51,11 +54,11 @@ def evaluate_model(model, data_batches, loss_function):
 
 
 if __name__ == '__main__':
-    _,testDataLoader = scripts.get_data(data_path="../data/SeoulBikeData.csv",testData = True)
-    model = noLSTM()
+    _,testDataLoader, embedding_size = scripts.get_data(data_path="../data/Data1/train_eng.csv",testData = True)
+    model = noLSTM(input_size = embedding_size)
     loss_function = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     model.load_state_dict(torch.load('./model.pt'))
-    test_loss, test_acc = evaluate_model(model, loader, loss_function)
+    test_loss, test_acc = evaluate_model(model, testDataLoader, loss_function)
     print(f'Accuracy on test data : {test_acc * 100:.2f}%')
