@@ -55,5 +55,5 @@ if __name__ == '__main__':
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     model.load_state_dict(torch.load('./model.pt'))
-    test_loss, test_acc = evaluate_model(model, loader, loss_function)
+    test_loss, test_acc = evaluate_model(model, testDataLoader, loss_function)
     print(f'Accuracy on test data : {test_acc * 100:.2f}%')
