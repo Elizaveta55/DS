@@ -88,7 +88,7 @@ def main(args):
         correct = 0
         total = 0
         start_epoch = time.time()
-        for item in loader:
+        for item in train_DataLoader:
             seq = item[0]
             label = item[1]
             optimizer.zero_grad()
