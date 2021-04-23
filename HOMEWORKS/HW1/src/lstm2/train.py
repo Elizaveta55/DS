@@ -18,7 +18,7 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu' # get device for trainin
 writer = SummaryWriter()
 
 class LSTM(torch.nn.Module):
-  def __init__(self, input_size=max_length, hidden_layer_size=100, output_size=2, vocab_size=52, embedding_dim = max_length):
+  def __init__(self, input_size, hidden_layer_size=100, output_size=2, vocab_size=52, embedding_dim = max_length):
         super().__init__()
         self.hidden_layer_size = hidden_layer_size
         #self.embedding = nn.Embedding(vocab_size, embedding_dim)
@@ -61,7 +61,7 @@ def f1_loss_one(y_true: torch.Tensor, y_pred: torch.Tensor, is_training=False) -
     return f1
 
 def main(args):
-    train_DataLoader, _  = scripts.get_data(data_path="../data/Data1/train_data.csv",testData = True)
+    train_DataLoader, _ , embedding_size = scripts.get_data(data_path="../data/Data1/train_eng.csv",testData = True)
 
     import time
     import torch.nn.functional as F
@@ -76,7 +76,7 @@ def main(args):
         for lr in lrs:
             for loss_function in loss_functions:
                 for hidden_layer_size in n_layers:
-                    model = LSTM(hidden_layer_size=hidden_layer_size, embedding_dim=max_length)
+                    model = LSTM(input_size = embedding_size, hidden_layer_size = hidden_layer_size, embedding_dim = embedding_size)
                     optimizers = [torch.optim.Adam(model.parameters(), lr)]
                     for optimizer in optimizers:
                         print("MODEL")
@@ -91,7 +91,7 @@ def main(args):
                             correct = 0
                             total = 0
                             start_epoch = time.time()
-                            for item in loader:
+                            for item in train_DataLoader:
                                 seq = item[0]
                                 label = item[1]
                                 optimizer.zero_grad()
