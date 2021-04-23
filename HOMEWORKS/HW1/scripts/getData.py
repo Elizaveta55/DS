@@ -18,7 +18,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-def data_process(raw_text_iter,max_len,tokenizer):
+def data_process(raw_text_iter,max_len,tokenizer, vocab_new):
     batch = []
     for item in raw_text_iter:
       res = []
@@ -54,13 +54,13 @@ def get_data(data_path="../data/Data1/train_eng.csv",testData = True):
     embedding_size = max(max_length_train, max_length_test)
     n_classes = len(np.unique(train_data.Gender.values))
 
-    test_tensor = data_process(test_data.Name.values, embedding_size, tokenizer)
+    test_tensor = data_process(test_data.Name.values, embedding_size, tokenizer, vocab_new)
     test_data_normalized = torch.FloatTensor(scaler.fit_transform(test_tensor))
     test_tgts_tensor = torch.nn.functional.one_hot(torch.from_numpy(test_data.Gender.values), n_classes) #torch.from_numpy(train_data.Target.values)
     test_dataset = TensorDataset(test_data_normalized, test_tgts_tensor)
     test_loader = DataLoader(test_dataset, batch_size=128, shuffle=True, pin_memory=True)
 
-    train_tensor = data_process(train_data.Name.values, embedding_size, tokenizer)
+    train_tensor = data_process(train_data.Name.values, embedding_size, tokenizer, vocab_new)
     train_data_normalized = torch.FloatTensor(scaler.fit_transform(train_tensor))
     tgts_tensor = torch.nn.functional.one_hot(torch.from_numpy(train_data.Gender.values), n_classes) #torch.from_numpy(train_data.Target.values)
     dataset = TensorDataset(train_data_normalized, tgts_tensor)
