@@ -39,6 +39,8 @@ def get_data(data_path="../data/Data1/train_eng.csv",testData = True):
     train_data['Gender'] = train_data['Gender'].apply(lambda x: 0 if x=='M' else 1)
     train_data = train_data.sort_values(by="Name", key=lambda x: x.str.len())
     test_data = test_data.sort_values(by="Name", key=lambda x: x.str.len())
+    max_length_test = len(test_data.iloc[-1]['Name'])
+    max_length_train = len(train_data.iloc[-1]['Name'])
 
     unique = list(set("".join(train_data.iloc[:,0])))
     unique.sort()
