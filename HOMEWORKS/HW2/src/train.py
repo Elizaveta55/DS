@@ -3,6 +3,7 @@ import scripts
 import pandas as pd
 import numpy as np
 import time
+import math
 
 df_movie_features, _, df_ratings, df_ratings_test = scripts.get_data(data_path="../data/Data1/train.csv",testData = True)
 K=50
