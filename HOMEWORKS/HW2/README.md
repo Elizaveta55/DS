@@ -7,8 +7,8 @@
 ## Getting Started
 
 1. Launch automated git action.
-2. In case of any troubles, there are original notebook documents in the folder "Notebook" -> "eda" -> "MODELS" -> multiple folders with models, model's weights and output from tensorboard. There are some graphics which were used in the report, therefore they are presented as well.
-
+2. In case of any troubles, there are original notebook documents in the folder "Notebook" -> "eda" -> "mf" or "nn" folders with models (mf stands for matrix factorization, nn stands for neural network), models' weights.
+3. In the folder "norebooks" there if two files "full.ipynb", "full.py" which reflects initial code with all outputs.
 
 ## Repository Structure
 
@@ -21,37 +21,27 @@
 │   └── Data1                	<- Dataset 1 directory
 │
 ├── notebooks                	<- Notebooks for analysis and testing
-│   ├── eda                  	<- EDA Notebooks directory for
-│   │   └──models            	<- Folder with original code and all files 
-│   │      ├──lstm           	<- lstm model with one params configuration
-│   │      │   ├─model.pt    	<- model weights
-│   │      │   ├─events.out..	<- file from tensorboard
-│   │      │   ├─Untitled7.ipynb<- notebook raw code
-│   │      │   ├─Untitled7.py   <- script raw code
-│   │      ├──lstm2          	<- lstm model with another params configuration
-│   │      │   ├─model.pt    	<- model weights 
-│   │      │   ├─events.out..	<- file from tensorboard
-│   │      │   ├─Untitled7.ipynb<- notebook raw code
-│   │      │   ├─Untitled7.py   <- script raw code
-│   │      ├──simple          	<- simple model with linear layers
-│   │      │   ├─model.pt    	<- model weights 
-│   │      │   ├─events.out..	<- file from tensorboard 
-│   │      │   ├─Untitled7.ipynb<- notebook raw code
-│   │      │   ├─Untitled7.py   <- script raw code
-│   │      ├──simple lstm       <- basic lstm model
-│   │      │   ├─model.pt    	<- model weights 
-│   │      │   ├─events.out..	<- file from tensorboard
-│   │      │   ├─SimpleLSTM_ACTUAL.ipynb       <- notebook raw code
-│   │      │   ├─SimpleLSTM_ACTUAL.py          <- script raw code└
-│   │      └──comparison        <- folder with graphics for comparison
+│   ├────── eda                 <- EDA Notebooks directory for models
+│   │      │               	<- Folder with original code and all files 
+│   │      ├──mf          	<- manual matrix factorization implementation model
+│   │      │   ├─model    	<- model weights
+│   │      │   ├─MF.ipynb       <- notebook raw code
+│   │      │   ├─MF.py          <- script raw code
+│   │      ├──nn          	<- deep learning neural network model
+│   │      │   ├─weight.h5    	<- model weights (state dict)
+│   │      │   ├─NN.ipynb       <- notebook raw code
+│   │      │   ├─NN.py          <- script raw code
 │   └── preprocessing        	<- Notebooks for Preprocessing
 
 ├── scripts                  	<- Standalone scripts
 │   └── dataExtract.py       	<- Data Extraction script
 │
 ├── src                      	<- Code for use in this project.
-│   ├── train.py             	<- train script
-│   └── test.py              	<- test script
+│   ├────── nn                  <- train and test script folder for nn model
+│   │        ├── train.py       <- train script for nn model
+│   │        └── test.py        <- test script for nn model
+│   ├── train.py             	<- train script for mf model
+│   └── test.py              	<- test script for mf model
 │
 └── tests                    	<- Test cases (named after module)
 ```
