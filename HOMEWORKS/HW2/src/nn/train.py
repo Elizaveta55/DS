@@ -12,6 +12,7 @@ batch_sz = 128
 
 df_movie_features, _, df_ratings, df_ratings_test = scripts.get_data(data_path="../data/Data1/train.csv",testData = True)
 
+
 class RecommenderNet(nn.Module):
   def __init__(self, n_users, n_movies, n_factors=50, embedding_dropout=0.02, dropout_rate=0.2):
     super().__init__()
