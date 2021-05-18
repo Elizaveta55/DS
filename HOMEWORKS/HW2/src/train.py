@@ -3,9 +3,27 @@ import scripts
 import pandas as pd
 import numpy as np
 import time
+import math
 
 df_movie_features, _, df_ratings, df_ratings_test = scripts.get_data(data_path="../data/Data1/train.csv",testData = True)
-
+K=50
+alpha=0.01
+beta = 0.001
+R = np.array(df_movie_features)
+latent_dim = K
+iterations = 20
+num_users, num_items = R.shape
+P=np.random.normal(scale=1./latent_dim, size=(num_users, latent_dim))
+Q=np.random.normal(scale=1./latent_dim, size=(num_items, latent_dim))
+b_u = np.zeros(num_users)
+b_i = np.zeros(num_items)
+b = np.mean(R[np.where(R != 0)])
+samples = [
+    (i, j, R[i, j])
+    for i in range(num_users)
+    for j in range(num_items)
+    if R[i, j] > 0
+]
 
 def train():
     for i in range(iterations):
@@ -44,25 +62,6 @@ def full_matrix():
 
 
 def main(args):
-    K=50
-    alpha=0.01
-    beta = 0.001
-    R = np.array(df_movie_features)
-    latent_dim = K
-    iterations = 20
-    num_users, num_items = R.shape
-    P=np.random.normal(scale=1./latent_dim, size=(num_users, latent_dim))
-    Q=np.random.normal(scale=1./latent_dim, size=(num_items, latent_dim))
-    b_u = np.zeros(num_users)
-    b_i = np.zeros(num_items)
-    b = np.mean(R[np.where(R != 0)])
-    samples = [
-        (i, j, R[i, j])
-        for i in range(num_users)
-        for j in range(num_items)
-        if R[i, j] > 0
-    ]
-
     train()
     preds_df = pd.DataFrame(full_matrix())
 

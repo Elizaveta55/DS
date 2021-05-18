@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import time
 
-_,df_movie_features_test, df_ratings, df_ratings_test = scripts.get_data(data_path="../data/Data1/train.csv",testData = True)
+df_movie_features, df_movie_features_test, df_ratings, df_ratings_test = scripts.get_data(data_path="../data/Data1/train.csv",testData = True)
 
 
 def recommend_movies(preds_df, userID, original_ratings_df, num_recommendations=5):
